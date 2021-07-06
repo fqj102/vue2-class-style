@@ -17,7 +17,7 @@ export interface IProfile {
  export default class SampleComponent extends Vue {
    @Prop(String) readonly name!: string;
    @Model('update', { type: Object }) readonly profile!: IProfile;
-   @PropSync(String) value!: string;    // 할당 가능
+   //@PropSync(String) value!: string;    // 할당 가능
 }
 </script>
 

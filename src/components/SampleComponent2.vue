@@ -1,11 +1,20 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ aaa}}</h1>
+    <h2>{{bbb}}</h2>
+    <button @click="clickButton">click</button>
+    <div>
+      ddd
+      <v-text-field v-model="obj.name"></v-text-field>
+      <v-text-field v-model="obj.image"></v-text-field>
+    </div>
+    <br>
+    {{obj}}
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Model, PropSync, Vue } from 'vue-property-decorator';
+import { Component,Prop, Model, PropSync, Vue } from 'vue-property-decorator';
 
 export interface IProfile {
   id:number;
@@ -18,6 +27,14 @@ export interface IProfile {
     //AppButton,
     //ProductList
   },
+  data:()=>{
+    return {aaa:'1111111'}
+  },
+  methods:{
+  clickHander(){
+      console.log('22222')  
+    }
+  },
   directives: {
     //resize
   },
@@ -28,7 +45,17 @@ export interface IProfile {
     //PageMixin
   ]
 })
-export default class SampleComponent extends Vue {}
+export default class SampleComponent extends Vue {
+  //vue.runtime.esm.js?2b0e:619 [Vue warn]: Property or method "aaa" is not defined on the instance but referenced during render. 
+  //Make sure that this property is reactive, either in the data option, or for class-based components, by initializing the property
+  bbb = 'bbbb'
+
+  obj:IProfile = {id:0,name:'', image:''}
+
+  clickButton(){
+    this.bbb = 'ccc'
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

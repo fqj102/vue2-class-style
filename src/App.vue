@@ -36,7 +36,8 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-
+  HelloWorld
+ 
     <v-main>
       <router-view/>
     </v-main>
