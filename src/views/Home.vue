@@ -10,7 +10,6 @@
   import Vue from 'vue'
   import HelloWorld from '@/components/HelloWorld.vue'
   import sample2 from '@/components/SampleComponent2.vue'
-  import Form from '@/components/UserForm.vue'
 
   export default Vue.extend({
     name: 'Home',
