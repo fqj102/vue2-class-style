@@ -1,4 +1,5 @@
 <template>
+  <div style="margin:20px">
   <v-form
       ref="form"
       v-model="form.valid"
@@ -58,21 +59,55 @@
       Reset Validation
     </v-btn>
   </v-form>
+    <div>{{renderCnt1()}}</div>
+
+    <Swapper>
+    <template v-slot:header>
+      <h1>Here might be a page title</h1>
+    </template>
+
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+
+    <template v-slot:footer>
+      <h1>Here's some contact info</h1>
+    </template>
+    </Swapper>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Watch ,Prop, Model, PropSync, Vue } from 'vue-property-decorator';
-
+import Swapper from '@/components/Swaper'
 export interface Person {
   id:number;
   name:string;
   image?:string;
 }
 
-@Component
+@Component({
+  components:{
+    Swapper
+  }
+})
 export default class UserComponent extends Vue {
 
-  form = {
+  private renderCnt = 0
+
+  renderCnt1 () {
+    console.log( 'rendering ,111111')
+
+    console.log(this.addDays(new Date(),-10));
+  }
+
+  addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(date.getDate() + days);
+    return result;
+  }
+
+
+  private form = {
     valid: true,
     name: '',
     nameRules: [
@@ -84,20 +119,27 @@ export default class UserComponent extends Vue {
       v => !!v || 'E-mail is required',
       v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
     ],
-    select: null,
+    select: '',
     items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
+      {text:'선택하세요', value: ''},
+      {text:'hello1', value:'01'},
+      {text:'hello2', value:'02'},
+      {text:'hello3', value:'03'},
+      {text:'hello3', value:'04'},
+      {text:'hello4', value:'05'},
     ],
     checkbox: false,
+  }
+
+  mounted() {
+    console.log('ddddd')
   }
 
 
   validate () {
     const valid = this.$refs.form.validate()
     console.log(valid)
+    console.log(this.form)
   }
   reset () {
     this.$refs.form.reset()
