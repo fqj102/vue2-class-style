@@ -61,7 +61,7 @@
   </v-form>
     <div>{{renderCnt1()}}</div>
 
-    <Swapper>
+    <Swapper  :childValue="hello" @update:childValue="hello = $event" >
     <template v-slot:header>
       <h1>Here might be a page title</h1>
     </template>
@@ -73,12 +73,33 @@
       <h1>Here's some contact info</h1>
     </template>
     </Swapper>
+    <Swapper1  :childValue.sync="hello" >
+      <template v-slot:header>
+        <h1>Here might be a page title</h1>
+      </template>
+
+      <p>A paragraph for the main content.</p>
+      <p>And another one.</p>
+
+      <template v-slot:footer>
+        <h1>Here's some contact info</h1>
+      </template>
+    </Swapper1>
+    <hr>
+    <div>
+      <v-text-field
+          v-model="hello"
+          label="Name"
+      ></v-text-field>
+    </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Watch ,Prop, Model, PropSync, Vue } from 'vue-property-decorator';
 import Swapper from '@/components/Swaper'
+import Swapper1 from '@/components/Swaper1'
 export interface Person {
   id:number;
   name:string;
@@ -87,12 +108,15 @@ export interface Person {
 
 @Component({
   components:{
-    Swapper
+    Swapper,
+    Swapper1
   }
 })
 export default class UserComponent extends Vue {
 
   private renderCnt = 0
+
+  hello = ''
 
   renderCnt1 () {
     console.log( 'rendering ,111111')
